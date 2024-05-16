@@ -1,5 +1,11 @@
 Hello i'm blade template
 
-@isset($name)
-    <div>My name is {{$name}}</div>
-@endisset
+<div>
+    @if(count($tasks))
+        @foreach($tasks as $task)
+            <div>{{ $task->title }}</div>
+        @endforeach
+    @else
+        <div>There are no tasks</div>
+    @endif
+</div>
