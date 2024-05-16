@@ -1,11 +1,13 @@
 Hello i'm blade template
 
 <div>
-    @if(count($tasks))
-        @foreach($tasks as $task)
-            <div>{{ $task->title }}</div>
-        @endforeach
-    @else
+    {{--    @if(count($tasks))--}}
+    @forelse($tasks as $task)
+        <div>
+            <a href="{{ route('tasks.show', $task->id) }}">{{ $task->title }}</a>
+        </div>
+    @empty
         <div>There are no tasks</div>
-    @endif
+    @endforelse
+    {{--    @endif--}}
 </div>
