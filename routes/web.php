@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class Task
 {
@@ -56,14 +57,18 @@ $tasks = [
     ),
 ];
 
-Route::get('/', function () use ($tasks) {
+Route::get('/', function () {
+    return redirect()->route('tasks.index');
+});
+
+Route::get('/tasks', function () {
     return view('index', [
-            'tasks' => $tasks
+        'tasks' => \App\Models\Task::latest()->Where('completed', true)->get()
     ]);
 })->name('tasks.index');
 
-Route::get('/{id}', function ($id) {
-    return 'one single task';
+Route::get('/tasks/{id}', function ($id) use ($tasks) {
+    return view('show', ['task' => \App\Models\Task::findOrfail($id)]);
 })->name('tasks.show');
 
 //Route::get('/zzz', function () {
