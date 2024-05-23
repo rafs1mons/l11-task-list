@@ -40,6 +40,11 @@ Route::put('/tasks/{task}', function (TaskRequest $request, Task $task) {
         ->with('success', 'Task updated successfully');
 })->name('tasks.update');
 
+Route::put('/tasks/{task}/toggle-complete', function (Task $task) {
+    $task->toggleComplete();
+    return redirect()->back()->with('success','Task completed successfully');
+})->name('tasks.toggle-complete');
+
 Route::delete('/tasks/{task}', function (Task $task) {
     $task->delete();
 
